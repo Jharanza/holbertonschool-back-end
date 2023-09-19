@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+''' Module 0-gather_data_from_an_API that manipulate an API '''
 import requests
 import sys
 
