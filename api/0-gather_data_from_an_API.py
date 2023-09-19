@@ -3,11 +3,12 @@
 import requests
 import sys
 
-employee_id = sys.argv[1]
 
 
 if __name__ == '__main__':
 
+    employee_id = sys.argv[1]
+    
     url_base = 'https://jsonplaceholder.typicode.com/'
 
     ''' Get the employee information and transform it in json format '''
