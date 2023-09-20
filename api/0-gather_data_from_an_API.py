@@ -4,30 +4,37 @@ import requests
 import sys
 
 
-
 if __name__ == '__main__':
 
-    employee_id = sys.argv[1]
-    
-    url_base = 'https://jsonplaceholder.typicode.com/'
+    emp_id = int(sys.argv[1])
 
-    ''' Get the employee information and transform it in json format '''
-    response_employee = requests.get(f'{url_base}users/{employee_id}')
-    employee_data = response_employee.json()
+    url = 'https://jsonplaceholder.typicode.com'
 
-    ''' Get the todo list information and transform it in json format '''
-    response_todo_list = requests.get(f'{url_base}todos/?userId={employee_id}')
-    todo_list_data = response_todo_list.json()
+    ''' Get the employees list '''
+    employee = requests.get(f'{url}/users').json()
 
-    ''' Number of task finished and total tasks '''
-    len_completed = len([task for task in todo_list_data if task['completed']])
-    total_tasks = len(todo_list_data)
+    ''' Get the to do list '''
+    to_do = requests.get(f'{url}/todos').json()
 
-    ''' Display the progress '''
-    print(f"Employee {employee_data['name']} is done with tasks\
-            ({len_completed}/{total_tasks}):")
-    for task in todo_list_data:
-        print(f"\t {task['title']}")
+    t_count = 0
+    t_done = 0
 
-    if response_employee.status_code == 200:
-        content = response_employee.content
+    for i in to_do:
+        if i['userId'] == emp_id:
+            t_count += 1
+        if (i['completed'] and i['userId'] == emp_id):
+            t_done += 1
+
+    name = None
+    for i in employee:
+        if i['id'] == emp_id:
+            name = i['name']
+
+    print(
+            'Employee {} is done with tasks({}/{}):'
+            .format(name, t_done, t_count)
+            )
+
+    for task in to_do:
+        if task['completed'] is True and task['userId'] == emp_id:
+            print(f"\t {task['title']}")
