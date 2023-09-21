@@ -51,11 +51,3 @@ if __name__ == '__main__':
     with open(json_file, mode='w') as file:
         json.dump(user_data, file)
 
-    ''' Display the information '''
-    print(
-            'Employee {} is done with tasks({}/{}):'
-            .format(name, t_done, t_count)
-            )
-    for task in to_do:
-        if task['completed'] is True and task['userId'] == emp_id:
-            print(f"\t {task['title']}")
