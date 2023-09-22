@@ -38,7 +38,7 @@ if __name__ == '__main__':
         f'{emp_id}': [
             {
                 "task": f"{task['title']}",
-                "completed": f"{task['completed']}",
+                "completed": task['completed'],
                 "username": f"{employ['username']}"
             }
             for task in to_do if task['userId'] == emp_id
@@ -50,4 +50,3 @@ if __name__ == '__main__':
     json_file = f'{emp_id}.json'
     with open(json_file, mode='w') as file:
         json.dump(user_data, file)
-
