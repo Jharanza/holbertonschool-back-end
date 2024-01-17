@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-''' Module that extract data from an API '''
+''' Module that extract data from an API and store it in a CSV file '''
+import csv
 import requests
 from sys import argv
+
 
 
 def get_progress(employee_id) -> None:
@@ -23,11 +25,22 @@ def get_progress(employee_id) -> None:
     ''' All tasks'''
     tasks = [task for task in todos_data]
 
-    print("Employee {} is done with tasks ({}/{}):"
-          .format(users_data['name'], len(completed_task), len(tasks)))
+    export_to_csv(employee_id, users_data["username"], tasks)
 
-    for task in completed_task:
-        print('\t {}'.format(task['title']))
+
+def export_to_csv(user_id, username, tasks):
+    ''' Method that export the data from the api to the csv file '''
+    filename = f'{user_id}.csv'
+
+    ''' Write the csv with the data '''
+    with open(filename, mode='wt', newline='') as file:
+        writer = csv.writer(file, delimiter=',')
+
+        for task in tasks:
+            writer.writerow([user_id, username,
+                             task['completed'], task['title']])
+
+    print(f'Data exported to {filename}')
 
 
 if __name__ == '__main__':
