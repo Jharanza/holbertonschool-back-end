@@ -5,7 +5,6 @@ import requests
 from sys import argv
 
 
-
 def get_progress(employee_id) -> None:
     """ Method that take 2 endpoints and extract data about the same user """
 
@@ -25,6 +24,7 @@ def get_progress(employee_id) -> None:
     ''' All tasks'''
     tasks = [task for task in todos_data]
 
+    ''' Export the data to the export_to_csv function '''
     export_to_csv(employee_id, users_data["username"], tasks)
 
 
@@ -37,7 +37,7 @@ def export_to_csv(user_id, username, tasks):
         writer = csv.writer(file, delimiter=',')
 
         for task in tasks:
-            writer.writerow([user_id, username,
+            writer.writerow([str(user_id), username,
                              task['completed'], task['title']])
 
     print(f'Data exported to {filename}')
@@ -45,7 +45,7 @@ def export_to_csv(user_id, username, tasks):
 
 if __name__ == '__main__':
     try:
-        employee_id = int(argv[1])  # assign arg in position 2 to the variable
+        employee_id = int(argv[1])  # assign arg in position 1 to the variable
     except ValueError:
         print(ValueError)
     get_progress(employee_id)
