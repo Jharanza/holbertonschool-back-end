@@ -15,7 +15,7 @@ def all_data() -> dict:
 
     ''' Create an empty dict'''
     all_tasks = {}
-    
+
     ''' Add the data to the dict all_tasks'''
     for user in users:
         user_id = user['id']
@@ -32,6 +32,7 @@ def all_data() -> dict:
         ]
     return all_tasks
 
+
 def export_to_json():
     ''' Method that export the data from the api to a json file'''
     all_tasks = all_data()
@@ -40,6 +41,7 @@ def export_to_json():
         json.dump(all_tasks, file, indent=2)
 
     print('Eureka!')
+
 
 if __name__ == '__main__':
     export_to_json()
