@@ -18,18 +18,14 @@ def all_data() -> dict:
 
     ''' Add the data to the dict all_tasks'''
     for user in users:
-        user_id = user['id']
+        u_id = user['id']
         username = user['username']
         todo_data = user['todos']
 
-        all_tasks[str(user_id)] = [
-            {
-                'username': username,
-                'task': task['title'],
-                'completed': task['completed']
-            }
-            for task in todo_data
-        ]
+        all_tasks[
+            str(u_id)] = [{'username': username, 'task': task['title'],
+                           'completed': task['completed']}
+                          for task in todo_data]
     return all_tasks
 
 
@@ -38,7 +34,7 @@ def export_to_json():
     all_tasks = all_data()
 
     with open('todo_all_employees.json', 'w') as file:
-        json.dump(all_tasks, file, indent=2)
+        json.dump(all_tasks, file, indent=None)
 
     print('Eureka!')
 
