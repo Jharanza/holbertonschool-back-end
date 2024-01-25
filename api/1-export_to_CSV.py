@@ -18,9 +18,6 @@ def get_progress(employee_id) -> None:
     todos = requests.get(f"{url}/todos?userId={employee_id}")
     todos_data = todos.json()
 
-    '''Tasks completed'''
-    completed_task = [task for task in todos_data if task['completed']]
-
     ''' All tasks'''
     tasks = [task for task in todos_data]
 
@@ -34,7 +31,8 @@ def export_to_csv(user_id, username, tasks):
 
     ''' Write the csv with the data '''
     with open(filename, mode='wt', newline='') as file:
-        writer = csv.writer(file, delimiter=',')
+        writer = csv.writer(file, delimiter=',', quotechar='"',
+                            quoting=csv.QUOTE_ALL)
 
         for task in tasks:
             writer.writerow([str(user_id), username,
